@@ -7,6 +7,7 @@ const categorySchema = new mongoose.Schema({
   category: String,
   unit: String,
   stock: String,
+  price: String,
   description: String,
 
   // details: {
