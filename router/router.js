@@ -14,7 +14,6 @@ router.delete("/category/:id", deleteCategory);
 router.put("/category/:id", updateFields);
 router.get("/getdata", getData); 
 router.post("/bill", addBill);
- 
-aaa
+
 
 module.exports = router;
