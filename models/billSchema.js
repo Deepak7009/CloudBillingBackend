@@ -1,14 +1,9 @@
 const mongoose = require("mongoose");
 
-const categorySchema = new mongoose.Schema({
-  productid: String,
+const billSchema = new mongoose.Schema({
   name: String,
-  type: String,
-  category: String,
-  unit: String,
-  stock: String,
-  price: String,
-  description: String,
+  mobile: Number,
+  item: String,
   timestamp: {
     type: Date,
     default: Date.now,
@@ -22,6 +17,6 @@ const categorySchema = new mongoose.Schema({
   // },
 });
 
-const Category = mongoose.model("CategoryField", categorySchema);
+const Bill = mongoose.model("BillField", billSchema);
 
-module.exports = { Category };
+module.exports = { Bill };
