@@ -2,7 +2,9 @@
 
   "script": {
 
-    "start": "nodemon index.js"
+    "start": "node index.js",
+
+    "dev": "nodemon index.js"
 
   },
 
@@ -22,7 +24,7 @@
 
     "nodemailer": "^6.9.13",
 
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.1"
 
   }
 
