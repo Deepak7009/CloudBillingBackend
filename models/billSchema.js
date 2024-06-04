@@ -9,7 +9,6 @@ const orderItemSchema = new mongoose.Schema({
 const billSchema = new mongoose.Schema({
   name: String,
   mobile: Number,
-  
   orderItems: [orderItemSchema],
   timestamp: {
     type: Date,
@@ -17,6 +16,6 @@ const billSchema = new mongoose.Schema({
   },
 });
 
-const Bill = mongoose.model("Bill", billSchema);
+const Bill = mongoose.model("BillField", billSchema);
 
 module.exports = { Bill };

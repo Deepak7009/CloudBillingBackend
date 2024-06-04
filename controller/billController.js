@@ -5,39 +5,23 @@ const addBill = async (req, res) => {
   try {
     const { name, mobile, orderItems } = req.body;
 
-    // Validate and map over orderItems to ensure correct structure
-    const formattedOrderItems =
-      orderItems?.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price * item.quantity,
-      })) || [];
-
-    // Log the formatted order items to debug
-    console.log("Formatted Order Items:", formattedOrderItems);
-
-    const newBill = new Bill({
+    const form = new Bill({
       name,
       mobile,
-      orderItems: formattedOrderItems,
+      orderItems,
     });
 
-    await newBill.save();
-
-    // Log the saved bill to debug
-    console.log("Saved Bill:", newBill);
+    await form.save();
 
     res.status(201).json({
       message: "Order placed successfully",
-      bill: newBill,
+      bill: form,
     });
   } catch (error) {
     console.error("Error placing order:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
 
 const getBillData = async (req, res) => {
   try {
@@ -48,5 +32,6 @@ const getBillData = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 module.exports = { addBill, getBillData };
