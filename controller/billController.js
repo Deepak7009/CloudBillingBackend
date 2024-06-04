@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const addBill = async (req, res) => {
   try {
-    const {  name, mobile,item } =
+    const { name, mobile,item } =
       req.body;
 
     const form = new Bill({
