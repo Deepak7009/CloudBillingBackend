@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 
+const orderItemSchema = new mongoose.Schema({
+  name: String,
+  quantity: Number,
+  price: Number,
+});
+
 const billSchema = new mongoose.Schema({
   name: String,
   mobile: Number,
-  item: String,
+  
+  orderItems: [orderItemSchema],
   timestamp: {
     type: Date,
     default: Date.now,
   },
-  // details: {
-  //   company: String,
-  //   businessType: String,
-  //   advertising: String,
-  //   budget: String,
-  //   message: String,
-  // },
 });
 
-const Bill = mongoose.model("BillField", billSchema);
+const Bill = mongoose.model("Bill", billSchema);
 
 module.exports = { Bill };
