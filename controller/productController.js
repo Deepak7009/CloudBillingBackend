@@ -1,4 +1,4 @@
-const { Category } = require("../models/categorySchema");
+const { Product } = require("../models/productSchema");
 require("dotenv").config();
 
 const addFields = async (req, res) => {
@@ -6,12 +6,12 @@ const addFields = async (req, res) => {
     const { productid, name, type, category, unit, stock, description } =
       req.body;
 
-    const existingCategory = await Category.findOne({ productid });
-    if (existingCategory) {
+    const existingProductid = await Category.findOne({ productid });
+    if (existingProductid) {
       return res.status(400).json({ message: "Product ID already exists" });
     }
 
-    const form = new Category({
+    const form = new Product({
       productid,
       name,
       type,
@@ -24,17 +24,17 @@ const addFields = async (req, res) => {
     await form.save();
 
     res.status(201).json({
-      message: "Category added successfully",
+      message: "Product added successfully",
       contact: form,
     });
   } catch (error) {
-    console.error("Error adding category:", error);
+    console.error("Error adding product:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 const getData = async (req, res) => {
   try {
-    const data = await Category.find();
+    const data = await Product.find();
     res.status(200).json(data);
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -44,7 +44,7 @@ const getData = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    await Category.findByIdAndDelete(id);
+    await Product.findByIdAndDelete(id);
     res.status(200).json({ message: "Category deleted successfully" });
   } catch (error) {
     console.error("Error deleting category:", error);
@@ -56,20 +56,20 @@ const updateFields = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
 
-    const updatedCategory = await Category.findByIdAndUpdate(id, updatedData, {
+    const updatedCategory = await Product.findByIdAndUpdate(id, updatedData, {
       new: true,
     });
 
     if (!updatedCategory) {
-      return res.status(404).json({ message: "Category not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     res.status(200).json({
-      message: "Category updated successfully",
+      message: "Product updated successfully",
       contact: updatedCategory,
     });
   } catch (error) {
-    console.error("Error updating category:", error);
+    console.error("Error updating product:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
