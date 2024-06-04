@@ -5,8 +5,9 @@ const {
   getData,
   deleteCategory,
   updateFields,
-} = require("../controller/categoryController");
-const { addBill, getBillData } = require("../controller/billController");
+} = require("../controller/productController");
+const { addBill } = require("../controller/billController");
+const { getCategoryData, addCategory } = require("../controller/categoryController");
 
 router.post("/category", addFields);
 router.get("/getdata", getData);
@@ -15,5 +16,10 @@ router.put("/category/:id", updateFields);
 router.get("/getdata", getData);
 router.post("/bill", addBill);
 router.get("/bills", getBillData);
+router.get("/getCategoryData", getCategoryData); 
+router.post("/addcategory", addCategory);
+
+
+
 
 module.exports = router;
