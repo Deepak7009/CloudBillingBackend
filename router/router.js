@@ -13,8 +13,9 @@ router.post("/category", addFields);
 router.get("/getdata", getData);
 router.delete("/category/:id", deleteCategory);
 router.put("/category/:id", updateFields);
-router.get("/getdata", getData); 
+router.get("/getdata", getData);
 router.post("/bill", addBill);
+router.get("/bills", getBillData);
 router.get("/getCategoryData", getCategoryData); 
 router.post("/addcategory", addCategory);
 
