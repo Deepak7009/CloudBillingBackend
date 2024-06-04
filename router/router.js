@@ -6,7 +6,7 @@ const {
   deleteCategory,
   updateFields,
 } = require("../controller/productController");
-const { addBill } = require("../controller/billController");
+const { addBill, getBillData } = require("../controller/billController");
 const { getCategoryData, addCategory } = require("../controller/categoryController");
 
 router.post("/category", addFields);
