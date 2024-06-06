@@ -24,14 +24,42 @@ const addCategory = async (req, res) => {
     }
   };
 
-const getCategoryData = async (req, res) => {
+  const getCategoryData = async (req, res) => {
     try {
-      const category = await Category.find();
-      res.status(200).json(category);
+      const categories = await Category.find();
+      res.status(200).json(categories);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching categories:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   };
 
-  module.exports = { getCategoryData,addCategory };
+
+  const getItems = async (req, res) => {
+
+    const { category } = req.query;
+    try {
+      let products;
+      if (category) {
+        products = await Category.find({ category });
+      } else {
+        products = await Category.find();
+      }
+      res.status(200).json(products);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+  const getCategories = async (req, res) => {
+    try {
+      const categories = await Category.find({}, 'category');
+      res.status(200).json(categories);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+  module.exports = { getCategoryData, addCategory, getCategories, getItems };
