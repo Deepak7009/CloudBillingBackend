@@ -1,14 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const { addFields, getData, deleteCategory, updateFields }
-  = require("../controller/productController");
-const { addExpens, getExpens, updateExpens, deleteExpens }
-  = require("../controller/expensisesController");
-const { addBill, getBillData } = require("../controller/billController");
-const { getCategoryData, addCategory } = require("../controller/categoryController");
-
-// const auth = require("../middleware/auth");
 const {
   addFields,
   getData,
@@ -16,12 +8,15 @@ const {
   updateFields,
   getCategory,
   getProducts,
-} = require("../controller/productController");
-const { addBill, getBillData } = require("../controller/billController");
-
-const { getCategoryData, addCategory, getCategories, getItems } = require("../controller/categoryController");
-const { registerUser, loginUser } = require("../controller/userController");
-
+  } = require("../controller/productController");
+  const { addBill, getBillData } = require("../controller/billController");
+  
+  const { getCategoryData, addCategory, getCategories, getItems } = require("../controller/categoryController");
+  const { addExpens, getExpens, updateExpens, deleteExpens }
+  = require("../controller/expensisesController");
+  const { registerUser, loginUser } = require("../controller/userController");
+  // const auth = require("../middleware/auth");
+  
 router.post("/category", addFields);
 router.get("/getdata", getData);
 router.get("/category", getCategory);
