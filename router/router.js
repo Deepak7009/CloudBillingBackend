@@ -2,37 +2,31 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  addFields,
-  getData,
-  deleteCategory,
-  updateFields,
-  getCategory,
+  addProduct,
   getProducts,
+  deleteProduct,
+  updateProduct,
   } = require("../controller/productController");
   const { addBill, getBillData } = require("../controller/billController");
   
-  const { getCategoryData, addCategory, getCategories, getItems } = require("../controller/categoryController");
+  const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
   const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
   const { registerUser, loginUser } = require("../controller/userController");
   // const auth = require("../middleware/auth");
   
-router.post("/category", addFields);
-router.get("/getdata", getData);
-router.get("/category", getCategory);
-router.get("/product", getProducts);
+router.post("/product", addProduct);
+router.get("/get-products", getProducts);
+router.put("/product/:id", updateProduct);
+router.delete("/product/:id", deleteProduct);
 
-router.delete("/category/:id", deleteCategory);
-router.put("/category/:id", updateFields);
-router.get("/getdata", getData);
 router.post("/bill", addBill);
 router.get("/bills", getBillData);
 
-router.get("/getCategoryData", getCategoryData); 
+router.get("/get-product-data", getProductData); 
 router.post("/addcategory", addCategory);
 router.get("/categories", getCategories); 
-router.get("/items", getItems); 
-
+router.get("/products", getAllProducts); 
 
 router.post("/expenses", addExpens);
 router.get("/expenses", getExpens);

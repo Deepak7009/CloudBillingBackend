@@ -1,7 +1,7 @@
 const { Product } = require("../models/productSchema");
 require("dotenv").config();
 
-const addFields = async (req, res) => {
+const addProduct = async (req, res) => {
   try {
     const { productid, name, type, category, unit, stock, description } =
       req.body;
@@ -33,32 +33,8 @@ const addFields = async (req, res) => {
   }
 };
 
-const getCategory = async (req, res) => {
-  try {
-    const categories = await Product.distinct('category');
-    res.status(200).json(categories);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
 
 const getProducts = async (req, res) => {
-  try {
-    const { category } = req.query;
-    if (!category) {
-      return res.status(400).json({ message: 'Category is required' });
-    }
-    const items = await Product.find({ category });
-    res.status(200).json(items);
-  } catch (error) {
-    console.error('Error fetching items:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-
-const getData = async (req, res) => {
   try {
     const data = await Product.find();
     res.status(200).json(data);
@@ -68,7 +44,7 @@ const getData = async (req, res) => {
   }
 };
 
-const deleteCategory = async (req, res) => {
+const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
@@ -78,7 +54,7 @@ const deleteCategory = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-const updateFields = async (req, res) => {
+const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
@@ -101,4 +77,4 @@ const updateFields = async (req, res) => {
   }
 };
 
-module.exports = { addFields, getData, deleteCategory, updateFields, getCategory, getProducts };
+module.exports = { addProduct, getProducts, deleteProduct, updateProduct };
