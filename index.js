@@ -31,7 +31,7 @@ app.use(passport.session());
 app.use(router);
 
 // Database connection
-const dbConnection = require("./config/dbConnection");
+const dbConnection = require("./config/dbConnection"); 
 dbConnection();
 
 // Start the server 
