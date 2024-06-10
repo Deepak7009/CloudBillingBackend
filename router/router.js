@@ -7,13 +7,19 @@ const {
   deleteProduct,
   updateProduct,
   } = require("../controller/productController");
-  const { addBill, getBillData } = require("../controller/billController");
+const { addBill, getBillData, addTableBill } = require("../controller/billController");
   
   const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
   const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
   const { registerUser, loginUser } = require("../controller/userController");
   // const auth = require("../middleware/auth");
+
+const {
+  addStructureFields,
+  getStructureData,
+  deleteStructure,
+} = require("../controller/structureController");
   
 router.post("/product", addProduct);
 router.get("/get-products", getProducts);
@@ -33,11 +39,10 @@ router.get("/expenses", getExpens);
 router.put("/expens/:id", updateExpens);
 router.delete("/expens/:id", deleteExpens);
 
-router.post('/register', registerUser);
-router.post('/login', loginUser); 
-// router.get('/protectedRoute', auth, (req, res) => {
-//   res.json({ msg: 'Protected route accessed successfully', user: req.user });
-// });
-
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.post("/structure", addStructureFields);
+router.get("/getStructure", getStructureData);
+router.delete("/deleteStructure/:id", deleteStructure);
 
 module.exports = router;
