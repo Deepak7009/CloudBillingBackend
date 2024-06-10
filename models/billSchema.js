@@ -12,6 +12,7 @@ const billSchema = new mongoose.Schema({
   section: String,
   index:Number,
   orderItems: [orderItemSchema],
+  totalAmount: Number,
   timestamp: {
     type: Date,
     default: Date.now,
