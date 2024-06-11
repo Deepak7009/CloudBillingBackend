@@ -92,7 +92,7 @@ const getUserDetails = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const userId = req.params.userId;
-  const { restaurant, owner, address, mobile, email } = req.body;
+  const { restaruant, owner, address, mobile, email, openingHours, qrCodeImageUrl } = req.body;
 
   try {
     let user = await User.findById(userId);
@@ -102,11 +102,16 @@ const updateUser = async (req, res) => {
     }
 
     // Update user fields
-    user.restaurant = restaurant || user.restaurant;
+    user.restaruant = restaruant || user.restaruant;
     user.owner = owner || user.owner;
     user.address = address || user.address;
     user.mobile = mobile || user.mobile;
     user.email = email || user.email;
+    if (openingHours) {
+      user.openingHours.mondayFriday = openingHours.mondayFriday || user.openingHours.mondayFriday;
+      user.openingHours.saturdaySunday = openingHours.saturdaySunday || user.openingHours.saturdaySunday;
+    }
+    user.qrCodeImageUrl = qrCodeImageUrl || user.qrCodeImageUrl;
 
     await user.save();
 
