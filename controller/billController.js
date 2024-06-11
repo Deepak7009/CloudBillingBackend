@@ -36,5 +36,28 @@ const getBillData = async (req, res) => {
   }
 };
 
+const updateBill = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
 
-module.exports = { addBill, getBillData };
+    const updatedbill = await Structure.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+
+    if (!updatedbill) {
+      return res.status(404).json({ message: "Structure not found" });
+    }
+
+    res.status(200).json({
+      message: "Structure updated successfully",
+      contact: updatedbill,
+    });
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+module.exports = { addBill, getBillData, updateBill};

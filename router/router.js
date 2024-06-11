@@ -7,7 +7,7 @@ const {
   deleteProduct,
   updateProduct,
   } = require("../controller/productController");
-const { addBill, getBillData, addTableBill } = require("../controller/billController");
+const { addBill, getBillData, addTableBill, updateBill } = require("../controller/billController");
   
   const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
   const { addExpens, getExpens, updateExpens, deleteExpens }
@@ -28,6 +28,7 @@ router.delete("/product/:id", deleteProduct);
 
 router.post("/bill", addBill);
 router.get("/bills", getBillData);
+router.put("/updateBill/:id", updateBill);
 
 router.get("/get-product-data", getProductData); 
 router.post("/addcategory", addCategory);
