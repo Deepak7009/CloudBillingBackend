@@ -3,38 +3,45 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;
-  
-    try {
-      let user = await User.findOne({ email, name });
-      if (user) {
-        return res.status(400).json({ msg: "User already exists" });
-      }
-  
-      user = new User({
-        name,
-        email,
-        password,
-      });
-  
-      // Hash the password before saving the user
-      user.password = await bcrypt.hash(password, 10);
-  
-      await user.save();
-  
-      res.json({ msg: "User registered successfully" });
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
-    }
-  };
-
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { restaruant, owner, address, mobile, email, password } = req.body;
 
   try {
-    // Check if user exists
-    let user = await User.findOne({ email });
+    // Check if user already exists
+    let user = await User.findOne({ $or: [{ email }, { mobile }] });
+    if (user) {
+      return res.status(400).json({ msg: "User already exists" });
+    }
+
+    // Create new user
+    user = new User({
+      restaruant,
+      owner,
+      address,
+      mobile,
+      email,
+      password,
+    });
+
+    // Hash the password before saving the user
+    user.password = await bcrypt.hash(password, 10);
+
+    await user.save();
+
+    res.json({ msg: "User registered successfully" }); // Response without token
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+const loginUser = async (req, res) => {
+  const { emailOrMobile, password } = req.body;
+
+  try {
+    // Check if user exists by email or mobile
+    let user = await User.findOne({
+      $or: [{ email: emailOrMobile }, { mobile: emailOrMobile }],
+    });
     if (!user) {
       return res.status(400).json({ msg: "Invalid Credentials" });
     }
@@ -58,12 +65,7 @@ const loginUser = async (req, res) => {
       { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
-        res.status(200).json({
-          message: "Login successful",
-          token,
-      });
-      console.log("Token:",token)
-
+        res.json({ token });
       }
     );
   } catch (err) {
@@ -71,6 +73,7 @@ const loginUser = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
 
 const getUserDetails = async (req, res) => {
   try {
@@ -87,31 +90,31 @@ const getUserDetails = async (req, res) => {
   }
 }
 
+const updateUser = async (req, res) => {
+  const userId = req.params.userId;
+  const { restaurant, owner, address, mobile, email } = req.body;
 
-//const updatename = async (req, res) => {
-//  try {
-//    const { name } = req.user;
-//    const user = await Login.findOne({ name });
-//    if (!user) {
-//      return res.status(404).json({ error: "User not found" });
-//    }
-//    const { _id: userId } = user;
+  try {
+    let user = await User.findById(userId);
 
-//    const newname = req.body.name;
-//    const updatingUser = await Login.findByIdAndUpdate(
-//      userId,
-//      { name: newname },
-//      { new: true }
-//    );
-//    if (!updatingUser) {
-//      return res.status(404).json({ error: "User not found" });
-//    }
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
 
-//    res.status(200).json({ message: "name updated successfully" });
-//  } catch (error) {
-//    console.error(error);
-//    res.status(500).json({ error: "Internal server error" });
-//  }
-//};
+    // Update user fields
+    user.restaurant = restaurant || user.restaurant;
+    user.owner = owner || user.owner;
+    user.address = address || user.address;
+    user.mobile = mobile || user.mobile;
+    user.email = email || user.email;
 
-module.exports = { registerUser, loginUser, getUserDetails };
+    await user.save();
+
+    res.json({ msg: "User updated successfully", user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+module.exports = { registerUser, loginUser, getUserDetails, updateUser };

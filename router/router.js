@@ -13,7 +13,7 @@ const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCatego
 const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
 const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
-const { registerUser, loginUser, getUserDetails } = require("../controller/userController");
+const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
 // const auth = require("../middleware/auth");
 
 const {
@@ -22,8 +22,14 @@ const {
   deleteStructure,
 } = require("../controller/structureController");
 
-router.post("/product", addProduct);
-router.get("/get-products", getProducts);
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get('/user/:userId', getUserDetails);
+router.put("/user/:userId", updateUser);
+
+router.post("/product/:userId", addProduct);
+router.get("/get-products/:userId", getProducts);
 router.put("/product/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
@@ -45,14 +51,10 @@ router.get("/newcategories", getNewCategories);
 router.put("/newcategories/:id", updateNewCategories);
 router.delete("/newcategories/:id", deleteNewCategories);
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
 router.post("/structure", addStructureFields);
 router.get("/getStructure", getStructureData);
 router.delete("/deleteStructure/:id", deleteStructure);
 
-router.get('/user/:userId', getUserDetails);
 
-//router.put("/update", verifyToken, updateUsername);
 
 module.exports = router;
