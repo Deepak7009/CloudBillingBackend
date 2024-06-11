@@ -22,33 +22,33 @@ const {
   deleteStructure,
 } = require("../controller/structureController");
 
-router.post("/product", addProduct);
-router.get("/get-products", getProducts);
+router.post("/product/:id", addProduct);
+router.get("/get-products/:id", getProducts);
 router.put("/product/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
-router.post("/bill", addBill);
-router.get("/bills", getBillData);
+router.post("/bill/:id", addBill);
+router.get("/bills/:id", getBillData);
 
-router.get("/get-product-data", getProductData);
-router.post("/addcategory", addCategory);
-router.get("/categories", getCategories);
-router.get("/products", getAllProducts);
+router.get("/get-product-data/:id", getProductData);
+router.post("/addcategory/:id", addCategory);
+router.get("/categories/:id", getCategories);
+router.get("/products/:id", getAllProducts);
 
-router.post("/expenses", addExpens);
-router.get("/expenses", getExpens);
+router.post("/expenses/:id", addExpens);
+router.get("/expenses/:id", getExpens);
 router.put("/expens/:id", updateExpens);
 router.delete("/expens/:id", deleteExpens);
 
-router.post("/newcategories", addNewCategories);
-router.get("/newcategories", getNewCategories);
+router.post("/newcategories/:id", addNewCategories);
+router.get("/newcategories/:id", getNewCategories);
 router.put("/newcategories/:id", updateNewCategories);
 router.delete("/newcategories/:id", deleteNewCategories);
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.post("/structure", addStructureFields);
-router.get("/getStructure", getStructureData);
+router.post("/register/:id", registerUser);
+router.post("/login/:id", loginUser);
+router.post("/structure/:id", addStructureFields);
+router.get("/getStructure/:id", getStructureData);
 router.delete("/deleteStructure/:id", deleteStructure);
 
 router.get('/user/:userId', getUserDetails);
