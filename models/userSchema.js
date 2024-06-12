@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  restaruant: {
+  restaurant: {
     type: String,
     required: true,
     unique: true,
