@@ -8,36 +8,14 @@ const {
   getProducts,
   deleteProduct,
   updateProduct,
-} = require("../controller/productController");
-
-const { addBill, getBillData } = require("../controller/billController");
-const {
-  getCategoryData,
-  addCategory,
-} = require("../controller/categoryController");
-const { registerUser, loginUser } = require("../controller/userController");
-
-// Routes
-router.post("/category", addFields);
-router.get("/getdata", getData);
-router.delete("/category/:id", deleteCategory);
-router.put("/category/:id", updateFields);
-router.post("/bill", addBill);
-router.get("/bills", getBillData);
-router.get("/getCategoryData", getCategoryData);
-router.post("/addcategory", addCategory);
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.post("/auth/google/callback", googleAuth);
-
-const { addBill, getBillData, addTableBill } = require("../controller/billController");
-
-const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCategories } = require('../controller/categoriesController')
+  } = require("../controller/productController");
+const { addBill, getBillData, addTableBill, updateBill, getBillById } = require("../controller/billController");
+ const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCategories } = require('../controller/categoriesController')
 const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
 const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
 const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
-// const auth = require("../middleware/auth");
+
 
 const {
   addStructureFields,
@@ -48,6 +26,7 @@ const {
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/auth/google/callback", googleAuth);
 router.get('/user/:userId', getUserDetails);
 router.put("/user/:userId", updateUser);
 
@@ -58,6 +37,8 @@ router.delete("/product/:id", deleteProduct);
 
 router.post("/bill", addBill);
 router.get("/bills", getBillData);
+router.get('/bills/:orderId', getBillById);
+router.put("/updateBill/:id", updateBill);
 
 router.get("/get-product-data", getProductData);
 router.post("/addcategory", addCategory);
