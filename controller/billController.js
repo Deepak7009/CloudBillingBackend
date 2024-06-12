@@ -3,12 +3,15 @@ require("dotenv").config();
 
 const addBill = async (req, res) => {
   try {
-    const { name, mobile, orderItems } = req.body;
+    const { name, mobile,section,index, orderItems,totalAmount } = req.body;
 
     const form = new Bill({
       name,
       mobile,
+      section,
+      index,
       orderItems,
+      totalAmount,
     });
 
     await form.save();

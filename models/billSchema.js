@@ -9,7 +9,10 @@ const orderItemSchema = new mongoose.Schema({
 const billSchema = new mongoose.Schema({
   name: String,
   mobile: Number,
+  section: String,
+  index:Number,
   orderItems: [orderItemSchema],
+  totalAmount: Number,
   timestamp: {
     type: Date,
     default: Date.now,

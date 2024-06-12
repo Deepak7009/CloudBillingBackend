@@ -1,47 +1,53 @@
 const { Product } = require("../models/productSchema");
 require("dotenv").config();
 
-const addFields = async (req, res) => {
+const addProduct = async (req, res) => {
+  const userId = req.params.userId;
   try {
-    const { productid, name, type, category, unit, stock, description } =
-      req.body;
+    const { productid, name, type, category, unit, stock, price, description } = req.body;
 
-    const existingProductid = await Product.findOne({ productid });
+    const existingProductid = await Product.findOne({ userId, productid });
     if (existingProductid) {
       return res.status(400).json({ message: "Product ID already exists" });
     }
 
-    const form = new Product({
+    const newProduct = new Product({
       productid,
+      userId,  // Ensure userId is set correctly
       name,
       type,
       category,
       unit,
       stock,
+      price,
       description,
     });
 
-    await form.save();
+    await newProduct.save();
 
     res.status(201).json({
       message: "Product added successfully",
-      contact: form,
+      product: newProduct,
     });
   } catch (error) {
     console.error("Error adding product:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-const getData = async (req, res) => {
+
+
+const getProducts = async (req, res) => {
+  const userId = req.params.userId;
   try {
-    const data = await Product.find();
-    res.status(200).json(data);
+    const products = await Product.find({ userId });
+    res.status(200).json(products);
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching products:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-const deleteCategory = async (req, res) => {
+
+const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
@@ -51,7 +57,7 @@ const deleteCategory = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-const updateFields = async (req, res) => {
+const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
@@ -74,4 +80,4 @@ const updateFields = async (req, res) => {
   }
 };
 
-module.exports = { addFields, getData, deleteCategory, updateFields };
+module.exports = { addProduct, getProducts, deleteProduct, updateProduct };
