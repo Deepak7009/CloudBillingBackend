@@ -17,9 +17,9 @@ const UserSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
-    unique: true,
-  },
+    required: true
+    },
+
   email: {
     type: String,
     required: true,
@@ -49,4 +49,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+
 module.exports = mongoose.model("User", UserSchema);
+
