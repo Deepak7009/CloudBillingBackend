@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const addBill = async (req, res) => {
   try {
-    const { name, mobile,section,index, orderItems,totalAmount } = req.body;
+    const { name, mobile, section, index, orderItems, totalAmount } = req.body;
 
     const form = new Bill({
       name,
@@ -35,22 +35,34 @@ const getBillData = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+const getBillById = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const bill = await Bill.findById(orderId); // Replace with your actual data fetching logic
+    if (!bill) {
+      return res.status(404).json({ error: "Bill not found" });
+    }
+    res.json(bill);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
 
 const updateBill = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
 
-    const updatedbill = await Structure.findByIdAndUpdate(id, updatedData, {
+    const updatedbill = await Bill.findByIdAndUpdate(id, updatedData, {
       new: true,
     });
 
     if (!updatedbill) {
-      return res.status(404).json({ message: "Structure not found" });
+      return res.status(404).json({ message: "bill not found" });
     }
 
     res.status(200).json({
-      message: "Structure updated successfully",
+      message: "bill updated successfully",
       contact: updatedbill,
     });
   } catch (error) {
@@ -59,5 +71,4 @@ const updateBill = async (req, res) => {
   }
 };
 
-
-module.exports = { addBill, getBillData, updateBill};
+module.exports = { addBill, getBillData, getBillById, updateBill };
