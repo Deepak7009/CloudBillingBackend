@@ -1,7 +1,7 @@
 // index.js
 const express = require("express");
 const cors = require("cors");
-const passport = require("passport");
+// const passport = require("passport");
 // const passportSetup =require("./passport")
 const session = require("express-session");
 const router = require("./router/router");
@@ -24,8 +24,8 @@ app.use(
 );
 
 // Passport setup (if you're using passport for other auth strategies)
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Use routes
 app.use(router);

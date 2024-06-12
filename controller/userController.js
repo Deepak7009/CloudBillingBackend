@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
 
   try {
     // Check if user already exists
-    let user = await User.findOne({ $or: [{ email }, { mobile }] });
+    let user = await User.findOne({ $or: [{mobile}, { email }] });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
       address,
       mobile,
       email,
-      password,
+      password, 
     });
 
     // Hash the password before saving the user
@@ -35,12 +35,12 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { emailOrMobile, password } = req.body;
+  const { email, mobile, password } = req.body;
 
   try {
     // Check if user exists by email or mobile
     let user = await User.findOne({
-      $or: [{ email: emailOrMobile }, { mobile: emailOrMobile }],
+      $or: [ { mobile}, {email}],
     });
     if (!user) {
       return res.status(400).json({ msg: "Invalid Credentials" });
