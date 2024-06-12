@@ -17,7 +17,7 @@ app.use(express.json());
 // Session setup 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // Ensure this is set in your .env file
+    secret: process.env.JWT_SECRET, // Ensure this is set in your .env file
     resave: false,
     saveUninitialized: false,
   })
