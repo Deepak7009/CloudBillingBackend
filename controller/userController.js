@@ -17,7 +17,8 @@ const registerUser = async (req, res) => {
       address,
       mobile,
       email,
-      password,
+      password, 
+
     });
 
     user.password = await bcrypt.hash(password, 10);
@@ -32,12 +33,16 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+
   const { emailOrMobile, password } = req.body;
+
 
   try {
     // Check if user exists by email or mobile
     let user = await User.findOne({
+
       $or: [{ email: emailOrMobile }, { mobile: emailOrMobile }],
+
     });
     if (!user) {
       return res.status(400).json({ msg: "Invalid Credentials" });
