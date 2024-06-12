@@ -17,4 +17,4 @@ const conn = async () => {
   }
 };
 
-module.exports = conn;
+module.exports = coon;
