@@ -2,12 +2,14 @@ const { Structure } = require("../models/structureSchema");
 require("dotenv").config();
 
 const addStructureFields = async (req, res) => {
+  const userId = req.params.userId;
   try {
     const { number, title, charge } =
       req.body;
 
     const form = new Structure({
       number,
+      userId,
       title,
       charge,
     });
@@ -24,8 +26,9 @@ const addStructureFields = async (req, res) => {
   }
 };
 const getStructureData = async (req, res) => {
+  const userId = req.params.userId;
   try {
-    const data = await Structure.find();
+    const data = await Structure.find({userId});
     res.status(200).json(data);
   } catch (error) {
     console.error("Error fetching data:", error);

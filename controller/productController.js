@@ -13,7 +13,7 @@ const addProduct = async (req, res) => {
 
     const newProduct = new Product({
       productid,
-      userId,  // Ensure userId is set correctly
+      userId,
       name,
       type,
       category,
