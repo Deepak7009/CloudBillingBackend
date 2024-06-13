@@ -51,7 +51,7 @@ router.put("/expens/:id", updateExpens);
 router.delete("/expens/:id", deleteExpens);
 
 router.post("/newcategories", addNewCategories);
-router.get("/newcategories", getNewCategories);
+router.get("/newcategories", getNewCategories); 
 router.put("/newcategories/:id", updateNewCategories);
 router.delete("/newcategories/:id", deleteNewCategories);
 
