@@ -37,7 +37,7 @@ router.delete("/product/:id", deleteProduct);
 
 router.post("/bill/:userId", addBill);
 router.get("/bills/:userId", getBillData);
-router.get('/bills/:orderId', getBillById);
+router.get('/billss/:orderId', getBillById);
 router.put("/updateBill/:id", updateBill);
 
 router.get("/get-product-data/:userId", getProductData);

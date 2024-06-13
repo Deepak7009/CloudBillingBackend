@@ -41,6 +41,7 @@ const getBillData = async (req, res) => {
 const getBillById = async (req, res) => {
   try {
     const { orderId } = req.params;
+    console.log("this id order id", orderId)
     const bill = await Bill.findById(orderId); // Replace with your actual data fetching logic
     if (!bill) {
       return res.status(404).json({ error: "Bill not found" });
