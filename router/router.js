@@ -24,6 +24,7 @@ router.get("/bills", getBillData);
 router.get("/getCategoryData", getCategoryData);
 router.post("/addcategory", addCategory);
 router.post("/register", registerUser);
+
 router.post("/login", loginUser);
 router.post("/auth/google/callback", googleAuth);
 

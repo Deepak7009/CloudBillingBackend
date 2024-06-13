@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Session setup 
-app.use(
+app.use( 
   session({
     secret: process.env.SESSION_SECRET, // Ensure this is set in your .env file
     resave: false,
@@ -38,3 +38,4 @@ dbConnection();
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+  
