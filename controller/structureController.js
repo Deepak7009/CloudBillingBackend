@@ -50,17 +50,17 @@ const updateStructure = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
 
-    const updatedCategory = await Structure.findByIdAndUpdate(id, updatedData, {
+    const updatedStruct = await Structure.findByIdAndUpdate(id, updatedData, {
       new: true,
     });
 
-    if (!updatedCategory) {
+    if (!updatedStruct) {
       return res.status(404).json({ message: "Structure not found" });
     }
 
     res.status(200).json({
       message: "Structure updated successfully",
-      contact: updatedCategory,
+      contact: updatedStruct,
     });
   } catch (error) {
     console.error("Error updating product:", error);

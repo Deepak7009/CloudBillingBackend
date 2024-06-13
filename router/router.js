@@ -1,20 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
+const { googleAuth } = require("../controller/authController");
+
 const {
   addProduct,
   getProducts,
   deleteProduct,
   updateProduct,
-} = require("../controller/productController");
-const { addBill, getBillData, addTableBill } = require("../controller/billController");
-
-const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCategories } = require('../controller/categoriesController')
+  } = require("../controller/productController");
+const { addBill, getBillData, addTableBill, updateBill, getBillById } = require("../controller/billController");
+ const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCategories } = require('../controller/categoriesController')
 const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
 const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
 const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
-// const auth = require("../middleware/auth");
+
 
 const {
   addStructureFields,
@@ -25,6 +26,7 @@ const {
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+//router.post("/auth/google/callback", googleAuth);
 router.get('/user/:userId', getUserDetails);
 router.put("/user/:userId", updateUser);
 
@@ -35,6 +37,8 @@ router.delete("/product/:id", deleteProduct);
 
 router.post("/bill/:userId", addBill);
 router.get("/bills/:userId", getBillData);
+router.get('/bills/:orderId', getBillById);
+router.put("/updateBill/:id", updateBill);
 
 router.get("/get-product-data/:userId", getProductData);
 router.post("/addcategory/:userId", addCategory);
@@ -54,7 +58,6 @@ router.delete("/newcategories/:id", deleteNewCategories);
 router.post("/structure/:userId", addStructureFields);
 router.get("/getStructure/:userId", getStructureData);
 router.delete("/deleteStructure/:id", deleteStructure);
-
 
 
 module.exports = router;
