@@ -2,17 +2,19 @@ const { Expens } = require("../models/expensisesSchema");
 require("dotenv").config();
 
 const addExpens = async (req, res) => {
+    const userId = req.params.userId;
     try {
         const { srno, date, title, price, description } =
             req.body;
 
-        const existingSrno = await Expens.findOne({ srno });
+        const existingSrno = await Expens.findOne({userId, srno });
         if (existingSrno) {
             return res.status(400).json({ message: "Serial no. already exists" });
         }
 
         const form = new Expens({
             srno,
+            userId,
             date,
             title,
             price,
@@ -32,8 +34,9 @@ const addExpens = async (req, res) => {
 };
 
 const getExpens = async (req, res) => {
+    const userId = req.params.userId;
     try {
-        const data = await Expens.find();
+        const data = await Expens.find({userId});
         res.status(200).json(data);
     } catch (error) {
         console.error("Error fetching data:", error);

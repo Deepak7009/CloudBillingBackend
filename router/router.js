@@ -13,7 +13,7 @@ const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCatego
 const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
 const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
-const { registerUser, loginUser, getUserDetails } = require("../controller/userController");
+const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
 // const auth = require("../middleware/auth");
 
 const {
@@ -22,37 +22,39 @@ const {
   deleteStructure,
 } = require("../controller/structureController");
 
-router.post("/product/:id", addProduct);
-router.get("/get-products/:id", getProducts);
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get('/user/:userId', getUserDetails);
+router.put("/user/:userId", updateUser);
+
+router.post("/product/:userId", addProduct);
+router.get("/get-products/:userId", getProducts);
 router.put("/product/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
-router.post("/bill/:id", addBill);
-router.get("/bills/:id", getBillData);
+router.post("/bill/:userId", addBill);
+router.get("/bills/:userId", getBillData);
 
-router.get("/get-product-data/:id", getProductData);
-router.post("/addcategory/:id", addCategory);
-router.get("/categories/:id", getCategories);
-router.get("/products/:id", getAllProducts);
+router.get("/get-product-data/:userId", getProductData);
+router.post("/addcategory/:userId", addCategory);
+router.get("/categories/:userId", getCategories);
+router.get("/products/:userId", getAllProducts);
 
-router.post("/expenses/:id", addExpens);
-router.get("/expenses/:id", getExpens);
+router.post("/expenses/:userId", addExpens);
+router.get("/expenses/:userId", getExpens);
 router.put("/expens/:id", updateExpens);
 router.delete("/expens/:id", deleteExpens);
 
-router.post("/newcategories/:id", addNewCategories);
-router.get("/newcategories/:id", getNewCategories);
+router.post("/newcategories/:userId", addNewCategories);
+router.get("/newcategories/:userId", getNewCategories);
 router.put("/newcategories/:id", updateNewCategories);
 router.delete("/newcategories/:id", deleteNewCategories);
 
-router.post("/register/:id", registerUser);
-router.post("/login/:id", loginUser);
-router.post("/structure/:id", addStructureFields);
-router.get("/getStructure/:id", getStructureData);
+router.post("/structure/:userId", addStructureFields);
+router.get("/getStructure/:userId", getStructureData);
 router.delete("/deleteStructure/:id", deleteStructure);
 
-router.get('/user/:userId', getUserDetails);
 
-//router.put("/update", verifyToken, updateUsername);
 
 module.exports = router;
