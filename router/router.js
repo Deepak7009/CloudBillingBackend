@@ -30,6 +30,7 @@ router.post("/login", loginUser);
 router.get('/user/:userId', getUserDetails);
 router.put("/user/:userId", updateUser);
 
+
 router.post("/product/:userId", addProduct);
 router.get("/get-products/:userId", getProducts);
 router.put("/product/:id", updateProduct);
