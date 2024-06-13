@@ -33,22 +33,20 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-
   const { emailOrMobile, password } = req.body;
 
-
   try {
-    // Check if user exists by email or mobile
-    let user = await User.findOne({
+    let user;
+    if (emailOrMobile.includes("@")) {
+      user = await User.findOne({ email: emailOrMobile });
+    } else {
+      user = await User.findOne({ mobile: Number(emailOrMobile) });
+    }
 
-      $or: [{ email: emailOrMobile }, { mobile: emailOrMobile }],
-
-    });
     if (!user) {
       return res.status(400).json({ msg: "Invalid Credentials" });
     }
 
-    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Invalid Credentials" });
@@ -75,6 +73,7 @@ const loginUser = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
 
 
 const getUserDetails = async (req, res) => {

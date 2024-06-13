@@ -2,11 +2,13 @@ const { Bill } = require("../models/billSchema");
 require("dotenv").config();
 
 const addBill = async (req, res) => {
+  const userId = req.params.userId;
   try {
     const { name, mobile, section, index, orderItems, totalAmount } = req.body;
 
-    const form = new Bill({
+    const newBill = new Bill({
       name,
+      userId,
       mobile,
       section,
       index,
@@ -14,11 +16,11 @@ const addBill = async (req, res) => {
       totalAmount,
     });
 
-    await form.save();
+    await newBill.save();
 
     res.status(201).json({
       message: "Order placed successfully",
-      bill: form,
+      bill: newBill,
     });
   } catch (error) {
     console.error("Error placing order:", error);
@@ -27,8 +29,9 @@ const addBill = async (req, res) => {
 };
 
 const getBillData = async (req, res) => {
+  const userId = req.params.userId;
   try {
-    const data = await Bill.find(); 
+    const data = await Bill.find({userId});
     res.status(200).json(data);
   } catch (error) {
     console.error("Error fetching data:", error);
