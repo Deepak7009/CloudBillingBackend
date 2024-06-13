@@ -35,28 +35,28 @@ router.get("/get-products/:userId", getProducts);
 router.put("/product/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
-router.post("/bill/:userId", addBill);
-router.get("/bills/:userId", getBillData);
+router.post("/bill", addBill);
+router.get("/bills", getBillData);
 router.get('/bills/:orderId', getBillById);
 router.put("/updateBill/:id", updateBill);
 
-router.get("/get-product-data/:userId", getProductData);
-router.post("/addcategory/:userId", addCategory);
-router.get("/categories/:userId", getCategories);
-router.get("/products/:userId", getAllProducts);
+router.get("/get-product-data", getProductData);
+router.post("/addcategory", addCategory);
+router.get("/categories", getCategories);
+router.get("/products", getAllProducts);
 
-router.post("/expenses/:userId", addExpens);
-router.get("/expenses/:userId", getExpens);
+router.post("/expenses", addExpens);
+router.get("/expenses", getExpens);
 router.put("/expens/:id", updateExpens);
 router.delete("/expens/:id", deleteExpens);
 
-router.post("/newcategories/:userId", addNewCategories);
-router.get("/newcategories/:userId", getNewCategories);
+router.post("/newcategories", addNewCategories);
+router.get("/newcategories", getNewCategories);
 router.put("/newcategories/:id", updateNewCategories);
 router.delete("/newcategories/:id", deleteNewCategories);
 
-router.post("/structure/:userId", addStructureFields);
-router.get("/getStructure/:userId", getStructureData);
+router.post("/structure", addStructureFields);
+router.get("/getStructure", getStructureData);
 router.delete("/deleteStructure/:id", deleteStructure);
 
 
