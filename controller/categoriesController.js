@@ -2,17 +2,19 @@ const { NewCategories } = require("../models/categoriesSchema");
 require("dotenv").config();
 
 const addNewCategories = async (req, res) => {
+    const userId = req.params.userId;
     try {
         const { srNo, newTitle, newStatus, newDescription } =
             req.body;
 
-        const existingSrNo = await NewCategories.findOne({ srNo });
+        const existingSrNo = await NewCategories.findOne({userId, srNo});
         if (existingSrNo) {
             return res.status(400).json({ message: "Serial no. already exists" });
         }
 
         const form = new NewCategories({
             srNo,
+            userId,
             newTitle,
             newStatus,
             newDescription
@@ -31,8 +33,9 @@ const addNewCategories = async (req, res) => {
 };
 
 const getNewCategories = async (req, res) => {
+    const userId = req.params.userId;
     try {
-        const data = await NewCategories.find();
+        const data = await NewCategories.find({userId});
         res.status(200).json(data);
     } catch (error) {
         console.error("Error fetching data:", error);

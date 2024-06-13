@@ -8,9 +8,10 @@ const orderItemSchema = new mongoose.Schema({
 
 const billSchema = new mongoose.Schema({
   name: String,
+  userId: { type: String, required: true },
   mobile: Number,
   section: String,
-  index:Number,
+  index: Number,
   orderItems: [orderItemSchema],
   totalAmount: Number,
   timestamp: {
