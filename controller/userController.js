@@ -3,31 +3,29 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
-  const { restaruant, owner, address, mobile, email, password } = req.body;
+  const { restaurant, owner, address, mobile, email, password } = req.body;
 
   try {
-    // Check if user already exists
     let user = await User.findOne({ $or: [{ email }, { mobile }] });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
 
-    // Create new user
     user = new User({
-      restaruant,
+      restaurant,
       owner,
       address,
       mobile,
       email,
-      password,
+      password, 
+
     });
 
-    // Hash the password before saving the user
     user.password = await bcrypt.hash(password, 10);
 
     await user.save();
 
-    res.json({ msg: "User registered successfully" }); // Response without token
+    res.json({ msg: "User registered successfully" }); 
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -35,12 +33,16 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+
   const { emailOrMobile, password } = req.body;
+
 
   try {
     // Check if user exists by email or mobile
     let user = await User.findOne({
+
       $or: [{ email: emailOrMobile }, { mobile: emailOrMobile }],
+
     });
     if (!user) {
       return res.status(400).json({ msg: "Invalid Credentials" });
@@ -92,7 +94,7 @@ const getUserDetails = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const userId = req.params.userId;
-  const { restaurant, owner, address, mobile, email } = req.body;
+  const { restaurant, owner, address, mobile, email, openingHours, qrCodeImageUrl } = req.body;
 
   try {
     let user = await User.findById(userId);
@@ -107,6 +109,11 @@ const updateUser = async (req, res) => {
     user.address = address || user.address;
     user.mobile = mobile || user.mobile;
     user.email = email || user.email;
+    if (openingHours) {
+      user.openingHours.mondayFriday = openingHours.mondayFriday || user.openingHours.mondayFriday;
+      user.openingHours.saturdaySunday = openingHours.saturdaySunday || user.openingHours.saturdaySunday;
+    }
+    user.qrCodeImageUrl = qrCodeImageUrl || user.qrCodeImageUrl;
 
     await user.save();
 
