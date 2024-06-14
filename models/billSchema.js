@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
 
 const orderItemSchema = new mongoose.Schema({
-  name: String,
+  productName: String,
   quantity: Number,
   price: Number,
 });
 
 const billSchema = new mongoose.Schema({
   name: String,
+  userId: { type: String, required: true },
   mobile: Number,
+  section: String,
+  index: Number,
   orderItems: [orderItemSchema],
+  totalAmount: Number,
   timestamp: {
     type: Date,
     default: Date.now,
