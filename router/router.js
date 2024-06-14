@@ -25,6 +25,7 @@ const {
 
 
 router.post("/register", registerUser);
+
 router.post("/login", loginUser);
 //router.post("/auth/google/callback", googleAuth);
 router.get('/user/:userId', getUserDetails);
