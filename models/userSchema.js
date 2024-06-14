@@ -39,7 +39,6 @@
 //     default: Date.now,
 //   },
 // });
-
 // module.exports = mongoose.model("User", UserSchema);
 const mongoose = require("mongoose");
 
