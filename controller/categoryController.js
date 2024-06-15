@@ -1,4 +1,5 @@
 const { Category } = require("../models/categorySchema");
+const { Product } = require("../models/productSchema");
 require("dotenv").config();
 
 const addCategory = async (req, res) => {
@@ -38,8 +39,9 @@ const getProductData = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
+  const userId = req.params.userId;
   try {
-    const categories = await Category.find({}, 'category');
+    const categories = await Product.find({userId}, 'category');
     res.status(200).json(categories);
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -49,14 +51,15 @@ const getCategories = async (req, res) => {
 
 
 const getAllProducts = async (req, res) => {
+  const userId = req.params.userId;
 
   const { category } = req.query;
   try {
     let products;
     if (category) {
-      products = await Category.find({ category });
+      products = await Product.find({userId, category });
     } else {
-      products = await Category.find();
+      products = await Product.find({userId});
     }
     res.status(200).json(products);
   } catch (error) {

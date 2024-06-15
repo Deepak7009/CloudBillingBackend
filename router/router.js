@@ -16,12 +16,7 @@ const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
 const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
 
-
-const {
-  addStructureFields,
-  getStructureData,
-  deleteStructure,
-} = require("../controller/structureController");
+const {addStructureFields, getStructureData, deleteStructure} = require("../controller/structureController");
 
 
 router.post("/register", registerUser);
