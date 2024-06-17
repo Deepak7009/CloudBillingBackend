@@ -4,7 +4,7 @@ require("dotenv").config();
 const addProduct = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const { productid, name, type, category, unit, stock, price, description } = req.body;
+    const { productid, productName, type, category, unit, stock, price, description } = req.body;
 
     const existingProductid = await Product.findOne({ userId, productid });
     if (existingProductid) {
@@ -14,7 +14,7 @@ const addProduct = async (req, res) => {
     const newProduct = new Product({
       productid,
       userId,
-      name,
+      productName,
       type,
       category,
       unit,
