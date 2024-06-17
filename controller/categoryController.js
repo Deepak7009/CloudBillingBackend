@@ -30,7 +30,7 @@ const addCategory = async (req, res) => {
 const getProductData = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const categories = await Category.find({userId});
+    const categories = await Product.find({userId});
     res.status(200).json(categories);
   } catch (error) {
     console.error("Error fetching categories:", error);
