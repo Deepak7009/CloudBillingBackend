@@ -1,20 +1,22 @@
 const { Product } = require("../models/productSchema");
 require("dotenv").config();
 
+const getNextProductId = async (userId) => {
+  const lastProduct = await Product.findOne({ userId }).sort({ productid: -1 });
+  return lastProduct ? lastProduct.productid + 1 : 1;
+};
+
 const addProduct = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const { productid, name, type, category, unit, stock, price, description } = req.body;
+    const { productName, type, category, unit, stock, price, description } = req.body;
 
-    const existingProductid = await Product.findOne({ userId, productid });
-    if (existingProductid) {
-      return res.status(400).json({ message: "Product ID already exists" });
-    }
+    const nextProductId = await getNextProductId(userId);
 
     const newProduct = new Product({
-      productid,
+      productid: nextProductId,
       userId,
-      name,
+      productName,
       type,
       category,
       unit,
