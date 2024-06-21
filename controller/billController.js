@@ -4,10 +4,10 @@ require("dotenv").config();
 const addBill = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const { productName, mobile, section, index, orderItems, totalAmount } = req.body;
+    const { name, mobile, section, index, orderItems, totalAmount } = req.body;
 
     const newBill = new Bill({
-      productName,
+      name,
       userId,
       mobile,
       section,
